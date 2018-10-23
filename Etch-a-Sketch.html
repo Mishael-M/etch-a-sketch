@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+
+  </head>
+  <body>
+    <div class = 'container' style='height:800px; width : 700px;'></div>
+    <p id = 'demo'> hello</p>
+  </body>
+
+  <script>
+    let box = [];
+    let element = document.querySelector('.container');
+    let boxnum = [];
+    let i, counter;
+    for (i = 0; i < 16*16; i++){
+        boxnum[i] = 'box'+ i.toString();
+        box[i]=document.createElement('div');
+        element.appendChild(box[i]);
+        box[i].setAttribute('style','border: 1px solid black; height: auto; width: auto; background-color : white;');
+        box[i].setAttribute('class', boxnum[i]);
+        box[i].setAttribute('onmouseover', 'mouseOn()');
+        box[i].setAttribute('onmouseout', 'mouseOff()');
+    }
+   
+    element.setAttribute('style','display : inline-grid; grid-template-columns : repeat(16, auto); margin : 0 auto;');
+    
+
+
+  </script>
+</html>
