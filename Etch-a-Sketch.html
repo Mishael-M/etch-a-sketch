@@ -6,49 +6,118 @@
 
   </head>
   <body>
+    <form id = "form" >
+      Enter Grid Size (1x1 to 64x64):
+      <input type="button" value="Change Grid Size" onclick= "newGrid()" ><br>
+      <input type="radio" name="colour" id="black" checked> Black<br>
+      <input type="radio" name="colour" id="random" > Random<br>
+    </form>
+    <form id = "form2" >
+        <input type="button" value="RESET" onclick= "reset(box.length)" ><br>
+    </form>
     <div class = 'container'></div>
-    <p id = 'demo'> hello</p>
   </body>
 
   <script>
     let box = [];
     let counter = [];
     let boxnum = [];
+    let counterGrid = 0;
     let element = document.querySelector('.container');
-    let i;
-    for (i = 0; i < 24*24; i++){
+
+    function newGrid() {
+      gridRemoval(box.length);
+      let newSize = prompt("Enter Grid Size (eg. 16x16, enter 16)");
+      gridSize(newSize);
+      return false;
+    } 
+
+    function gridSize(size){
+      let i;
+      for (i = 0; i < size*size; i++){
         box[i]=document.createElement('div');
         counter[i] = 0;
         element.appendChild(box[i]);
         boxnum[i] = "box" + parseInt(i, 10);
-        box[i].setAttribute('class', boxnum[i]);
+        box[i].setAttribute('id', boxnum[i]);
         box[i].setAttribute('style','border: 1px solid black; height : auto; width : auto; background-color : white;');
     }
    
-    element.setAttribute('style','display : inline-grid; grid-template-columns : repeat(24, auto);  margin : 0 auto; height : 500px; width : 500px;');
+    element.setAttribute('style','display : inline-grid; grid-template-columns : repeat(' + size + ', auto);  margin : 0 auto; height : 500px; width : 500px;');
     
+    }
+    
+    if (counterGrid == 0){
+      gridSize(16);
+      console.log(counterGrid);
+      counterGrid+= 1;
+      console.log(counterGrid);
+    }
+    
+    
+    function gridRemoval(size){
+      let o;
+      let element = document.querySelector('.container');
+      for (o = 0; o < size; o++){
+        element.removeChild(element.childNodes[0]);
+        console.log(box.length);
+      }
+      box = [];
+      console.log(box.length);
+    }
 
-    window.addEventListener('mouseover', function(e){
+    function reset(size){
+      alert("It's working Not really");
+      for (i = 0 ;i < size; i++){
+        box[i].setAttribute('style', 'border: 1px solid black; height : auto; width : auto; background-color : white;');
+      }
+      
+      return false;
+    }
+    document.getElementsById
+    function black(){
       if (event.target.nodeName == 'DIV'){
         for (x = 0; x < 24*24; x++){
-          if (event.target.className == boxnum[x]){
+          if (event.target.id == boxnum[x]){
             if (counter[x] == 0){
-              event.target.style.backgroundColor = 'black';
+              event.target.style.backgroundColor = 'silver';
               counter[x] += 1;
             } else if (counter[x] == 1) {
-              event.target.style.backgroundColor = 'dimgray';
+              event.target.style.backgroundColor = 'darkgray';
               counter[x] += 1;
             } else if (counter[x] == 2) {
                 event.target.style.backgroundColor = 'gray';
                 counter[x] += 1;
             } else if (counter[x] == 3) {
-                event.target.style.backgroundColor = 'darkgray';
+                event.target.style.backgroundColor = 'dimgray';
                 counter[x] += 1;
             } else if (counter[x] == 4) {
-                event.target.style.backgroundColor = 'silver';
+                event.target.style.backgroundColor = 'black';
                 counter[x] += 1;
           }}
         }
+      }
+    }
+
+    function random(){
+      if (event.target.nodeName == 'DIV'){
+        for (x = 0; x < 24*24; x++){
+          if (event.target.id == boxnum[x]){
+            let r = Math.floor((Math.random() * 255) + 1);
+            let g = Math.floor((Math.random() * 255) + 1);
+            let b = Math.floor((Math.random() * 255) + 1);
+            event.target.style.backgroundColor = 'rgb(' + r.toString() + ',' + g.toString() + ',' + b.toString()+')';
+          }
+        }
+      }
+    };
+
+    window.addEventListener('mouseover', function(e){
+      let text = document.getElementById('black');
+      if (text.checked == true){
+        black();
+      } else {
+        random();
       }
     });  
 
