@@ -6,27 +6,54 @@
 
   </head>
   <body>
-    <div class = 'container' style='height:800px; width : 700px;'></div>
+    <div class = 'container'></div>
     <p id = 'demo'> hello</p>
   </body>
 
   <script>
     let box = [];
-    let element = document.querySelector('.container');
+    let counter = [];
     let boxnum = [];
-    let i, counter;
-    for (i = 0; i < 16*16; i++){
-        boxnum[i] = 'box'+ i.toString();
+    let element = document.querySelector('.container');
+    let i;
+    for (i = 0; i < 24*24; i++){
         box[i]=document.createElement('div');
+        counter[i] = 0;
         element.appendChild(box[i]);
-        box[i].setAttribute('style','border: 1px solid black; height: auto; width: auto; background-color : white;');
+        boxnum[i] = "box" + parseInt(i, 10);
         box[i].setAttribute('class', boxnum[i]);
-        box[i].setAttribute('onmouseover', 'mouseOn()');
-        box[i].setAttribute('onmouseout', 'mouseOff()');
+        box[i].setAttribute('style','border: 1px solid black; height : auto; width : auto; background-color : white;');
     }
    
-    element.setAttribute('style','display : inline-grid; grid-template-columns : repeat(16, auto); margin : 0 auto;');
+    element.setAttribute('style','display : inline-grid; grid-template-columns : repeat(24, auto);  margin : 0 auto; height : 500px; width : 500px;');
     
+
+    window.addEventListener('mouseover', function(e){
+      if (event.target.nodeName == 'DIV'){
+        for (x = 0; x < 24*24; x++){
+          if (event.target.className == boxnum[x]){
+            if (counter[x] == 0){
+              event.target.style.backgroundColor = 'black';
+              counter[x] += 1;
+            } else if (counter[x] == 1) {
+              event.target.style.backgroundColor = 'dimgray';
+              counter[x] += 1;
+            } else if (counter[x] == 2) {
+                event.target.style.backgroundColor = 'gray';
+                counter[x] += 1;
+            } else if (counter[x] == 3) {
+                event.target.style.backgroundColor = 'darkgray';
+                counter[x] += 1;
+            } else if (counter[x] == 4) {
+                event.target.style.backgroundColor = 'silver';
+                counter[x] += 1;
+          }}
+        }
+      }
+    });  
+
+
+  
 
 
   </script>
