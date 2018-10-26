@@ -7,13 +7,11 @@
   </head>
   <body>
     <form id = "form" >
-      Enter Grid Size (1x1 to 64x64):
+      Enter Grid Size (Min. 1x1 to  Max. 64x64):
       <input type="button" value="Change Grid Size" onclick= "newGrid()" ><br>
       <input type="radio" name="colour" id="black" checked> Black<br>
       <input type="radio" name="colour" id="random" > Random<br>
-    </form>
-    <form id = "form2" >
-        <input type="button" value="RESET" onclick= "reset(box.length)" ><br>
+      <input type="button" value="RESET" onclick= "clearGrid()"><br>
     </form>
     <div class = 'container'></div>
   </body>
@@ -26,82 +24,75 @@
     let element = document.querySelector('.container');
 
     function newGrid() {
+      prev = box.length
       gridRemoval(box.length);
       let newSize = prompt("Enter Grid Size (eg. 16x16, enter 16)");
-      gridSize(newSize);
+      gridSize(newSize, prev);
       return false;
-    } 
+    }; 
 
-    function gridSize(size){
-      let i;
-      for (i = 0; i < size*size; i++){
-        box[i]=document.createElement('div');
-        counter[i] = 0;
-        element.appendChild(box[i]);
-        boxnum[i] = "box" + parseInt(i, 10);
-        box[i].setAttribute('id', boxnum[i]);
-        box[i].setAttribute('style','border: 1px solid black; height : auto; width : auto; background-color : white;');
-    }
-   
-    element.setAttribute('style','display : inline-grid; grid-template-columns : repeat(' + size + ', auto);  margin : 0 auto; height : 500px; width : 500px;');
+    function gridSize(size, previousSize){
+      if (size == 0 || size > 64 || size == null) {
+        alert('You have entered a number not valid!')
+        for (i = 0; i < previousSize; i++){
+          box[i]=document.createElement('div');
+          counter[i] = 10;
+          element.appendChild(box[i]);
+          boxnum[i] = "box" + parseInt(i, 10);
+          box[i].setAttribute('id', boxnum[i]);
+          box[i].setAttribute('style','border: 1px solid black; height : auto; width : auto; background-color : white;');
+       } 
+      } else {
+        let i;
+        for (i = 0; i < size*size; i++){
+          box[i]=document.createElement('div');
+          counter[i] = 10;
+          element.appendChild(box[i]);
+          boxnum[i] = "box" + parseInt(i, 10);
+          box[i].setAttribute('id', boxnum[i]);
+          box[i].setAttribute('style','border: 1px solid black; height : auto; width : auto; background-color : white;');
+      }
+      element.setAttribute('style','display : inline-grid; grid-template-columns : repeat(' + size + ', auto);  margin : 0 auto; height : 500px; width : 500px;');
+
+     }
+    };
+      
     
-    }
-    
+    // Creates starting 16x16 grid.
     if (counterGrid == 0){
       gridSize(16);
-      console.log(counterGrid);
       counterGrid+= 1;
-      console.log(counterGrid);
     }
-    
     
     function gridRemoval(size){
       let o;
       let element = document.querySelector('.container');
       for (o = 0; o < size; o++){
         element.removeChild(element.childNodes[0]);
-        console.log(box.length);
       }
       box = [];
-      console.log(box.length);
-    }
+    };
 
-    function reset(size){
-      alert("It's working Not really");
-      for (i = 0 ;i < size; i++){
-        box[i].setAttribute('style', 'border: 1px solid black; height : auto; width : auto; background-color : white;');
+    function clearGrid(){
+      let i;
+      for (i = 0; i < box.length; i++){
+        box[i].setAttribute('style','border: 1px solid black; height : auto; width : auto; background-color : white;');
       }
-      
-      return false;
     }
-    document.getElementsById
+      
     function black(){
       if (event.target.nodeName == 'DIV'){
-        for (x = 0; x < 24*24; x++){
+        for (x = 0; x < box.length; x++){
           if (event.target.id == boxnum[x]){
-            if (counter[x] == 0){
-              event.target.style.backgroundColor = 'silver';
-              counter[x] += 1;
-            } else if (counter[x] == 1) {
-              event.target.style.backgroundColor = 'darkgray';
-              counter[x] += 1;
-            } else if (counter[x] == 2) {
-                event.target.style.backgroundColor = 'gray';
-                counter[x] += 1;
-            } else if (counter[x] == 3) {
-                event.target.style.backgroundColor = 'dimgray';
-                counter[x] += 1;
-            } else if (counter[x] == 4) {
-                event.target.style.backgroundColor = 'black';
-                counter[x] += 1;
+            event.target.style.backgroundColor = 'hsl(' + '0, ' + '0%, ' + (counter[x]*10).toString()+'%)';
+            counter[x] -= 1;
           }}
         }
-      }
-    }
+      };
 
     function random(){
       if (event.target.nodeName == 'DIV'){
-        for (x = 0; x < 24*24; x++){
+        for (x = 0; x < box.length; x++){
           if (event.target.id == boxnum[x]){
             let r = Math.floor((Math.random() * 255) + 1);
             let g = Math.floor((Math.random() * 255) + 1);
@@ -120,10 +111,6 @@
         random();
       }
     });  
-
-
-  
-
 
   </script>
 </html>
