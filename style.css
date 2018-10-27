@@ -1,0 +1,27 @@
+body{
+    display: block;
+    background: tomato;
+    margin-left: 35%;
+    font-family: 'Cedarville Cursive', cursive;
+    font-size: 12.5px;
+}
+
+.container{
+    height : 425px; 
+    width : 425px;  
+    margin-top: 10px;
+
+}
+h1{
+    margin-left: 5%;
+    margin-bottom: 0;
+}
+
+.gridButtons{
+    font-family: 'Cedarville Cursive', cursive;
+    height: 27.5px;
+}
+
+#form{
+    font-size: 12.5px;
+}

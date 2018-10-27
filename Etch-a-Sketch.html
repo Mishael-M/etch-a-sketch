@@ -3,15 +3,17 @@
   <head>
     <meta charset="UTF-8">
     <title>title</title>
-
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Cedarville+Cursive" rel="stylesheet">
   </head>
   <body>
+    <h1>ETCH - A - SKETCH</h1>
     <form id = "form" >
       Enter Grid Size (Min. 1x1 to  Max. 64x64):
-      <input type="button" value="Change Grid Size" onclick= "newGrid()" ><br>
+      <input type="button" class="gridButtons"  value="Change Grid Size" onclick= "newGrid()" ><br>
       <input type="radio" name="colour" id="black" checked> Black<br>
       <input type="radio" name="colour" id="random" > Random<br>
-      <input type="button" value="RESET" onclick= "clearGrid()"><br>
+      <input type="button" class="gridButtons" value="RESET" onclick= "clearGrid()"><br>
     </form>
     <div class = 'container'></div>
   </body>
@@ -52,7 +54,7 @@
           box[i].setAttribute('id', boxnum[i]);
           box[i].setAttribute('style','border: 1px solid black; height : auto; width : auto; background-color : white;');
       }
-      element.setAttribute('style','display : inline-grid; grid-template-columns : repeat(' + size + ', auto);  margin : 0 auto; height : 500px; width : 500px;');
+      element.setAttribute('style','display : inline-grid; grid-template-columns : repeat(' + size + ', auto);');
 
      }
     };
